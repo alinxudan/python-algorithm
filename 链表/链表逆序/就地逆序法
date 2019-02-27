@@ -1,1 +1,54 @@
-1
+# 给定一个带头结点的单链表，请将其逆序。即如果单链表原来是head->1->2->3->4->5->6->7，那么逆序后变成head->7->6->5->4->3->2->1。
+
+#创建单链表数据结构
+class LNode:
+    def __init__(self):
+        self.data = None
+        self.next = None
+#就地逆序函数
+def Reverse(head):
+    #判断链表是否为空
+    if head == None or head.next == None:
+        return
+    #初始化参数
+    pre = None
+    cur = None
+    next = None
+    #将第一个结点设置为尾结点
+    cur = head.next
+    next = cur.next
+    cur.next = None
+    pre = cur
+    cur = next
+    #使当前遍历到的cur指向前序结点
+    while cur.next != None:
+        next = cur.next
+        cur.next = pre
+        pre = cur
+        cur = cur.next
+    #使链表的头节点指向遍历到的最后一个结点
+    cur.next = pre
+    head.next = cur
+if __name__ == '__main__':
+    i = 1
+    #链表头结点
+    head = LNode()
+    cur = head
+    #构造单链表
+    while i < 8:
+        tmp = LNode()
+        tmp.data = i
+        cur.next = tmp 
+        cur = tmp 
+        i+=1
+    print('逆序前：')
+    cur = head.next
+    while cur != None:
+        print cur.data
+        cur = cur.next
+    print('逆序后:')
+    Reverse(head)
+    cur = head.next
+    while cur != None:
+        print cur.data
+        cur = cur.next
