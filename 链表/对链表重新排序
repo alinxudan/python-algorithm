@@ -1,0 +1,76 @@
+#给定链表1，2，3，4，5，6，7，重新排序为1，7，2，6，3，5，4
+#思路：构建三个函数：
+#        1.找到链表的中间结点，并分成两个子链表
+#        2.翻转不带头结点的链表
+#        3.对链表进行排序
+
+class LNode:
+    def __init__(self):
+        self.data = None
+        self.next = None
+def FindMiddleNode(head):
+    if head is None or head.next is None:
+        return head
+    fast = head
+    slow = head
+    slowpre = head
+    while fast is not None and fast.next is not None:
+        slowpre = slow
+        slow = slow.next
+        fast = fast.next.next
+    slowpre.next = None
+    return slow
+# 对不带头结点的链表进行翻转
+def Reverse(head):
+    if head is None or head.next is None:
+        return head
+    pre = head
+    cur = head.next
+    next = cur.next
+    pre.next = None
+    while cur is not None:
+        next = cur.next
+        cur.next = pre
+        pre = cur
+        cur = next
+    return pre
+#对输入的最初的链表进行排序
+def Reorder(head):
+    if head is None or head.next is None:
+        return
+    cur1 = head.next
+    mid = FindMiddleNode(head)
+    cur2 = Reverse(mid) #后半部分链表逆序后的第一个节点
+    tmp = None #tmp用来作为临时存储的中转结点
+    while cur1.next is not None:
+        tmp = cur1.next
+        cur1.next = cur2
+        cur1 = tmp
+        tmp = cur2.next
+        cur2.next = cur1
+        cur2 = tmp 
+    cur1.next = cur2
+if __name__=="__main__":
+    i=1
+    head = LNode()
+    head.next =None
+    tmp = None
+    cur = head
+    while i<9:
+        tmp = LNode()
+        tmp.data = i
+        tmp.next =None
+        cur.next = tmp
+        cur = tmp
+        i+=1
+    print("排序前：",end=" ")
+    cur = head.next
+    while cur is not None:
+        print(cur.data)
+        cur = cur.next
+    print("排序后:",end=" ")
+    Reorder(head)
+    cur = head.next
+    while cur is not None:
+        print(cur.data)
+        cur = cur.next
