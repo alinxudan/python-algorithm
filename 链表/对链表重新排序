@@ -66,11 +66,11 @@ if __name__=="__main__":
     print("排序前：",end=" ")
     cur = head.next
     while cur is not None:
-        print(cur.data)
+        print(cur.data,end=" ")
         cur = cur.next
     print("排序后:",end=" ")
     Reorder(head)
     cur = head.next
     while cur is not None:
-        print(cur.data)
+        print(cur.data,end=" ")
         cur = cur.next
