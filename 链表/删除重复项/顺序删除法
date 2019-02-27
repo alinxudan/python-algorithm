@@ -1,0 +1,53 @@
+#给定一个没有排序的链表，去掉其中重复项，并保留原有顺序，例如链表1->3->1->5->5->7->7,操作后为 1->3->5->7
+
+class LNode:
+    def __init__(self):
+        self.data = None
+        self.next = None
+
+def Remove(head):
+    if head is None or head.next is None:
+        return
+    outcur = head.next
+    innercur = None
+    innerpre = None
+    while outcur != None:
+        innercur = outcur.next
+        innerpre = outcur
+        while innercur != None:
+            if innercur == outcur:
+                innerpre.next = innercur.next
+                innercur = innercur.next
+            else:
+                innerpre = innercur
+                innercur =innercur.next
+        outcur = outcur.next
+if __name__ == "__main__":
+    i = 1
+    head = LNode()
+    head.next = None
+    tmp = None
+    cur = head
+    while i < 8:
+        tmp = LNode()
+        if i%2==0:
+            tmp.data=i+1
+        elif i%3==0:
+            tmp.data=i-2
+        else:
+            tmp.data=i
+        tmp.next=None
+        cur.next=tmp
+        cur=tmp
+        i+=1
+    print("删除前：")
+    cur = head.next
+    while cur != None:
+        print(cur.data)
+        cur = cur.next
+    print("删除后：")
+    Remove(head)
+    cur = head.next
+    while cur != None:
+        print(cur.data)
+        cur = cur.next 
