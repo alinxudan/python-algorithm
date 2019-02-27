@@ -1,0 +1,101 @@
+#给定两个链表，链表的每个结点代表一位数，计算对应两个数的和。
+
+#链表数据结构
+class LNode:
+    def __init__(self):
+        self.data = None
+        self.next = None
+def addfuction(h1,h2):
+    if h1 is None or h1.next is None:
+        return h2
+    if h2 is None or h2.next is None:
+        return h1
+    c = 0 #表示进位
+    sums = 0 #表示两个数相加的和
+    p1 = h1.next
+    p2 = h2.next
+    tmp = None #用来指向存储相加后和的结点
+    resultHead = LNode() #最后的结果链表的头结点
+    resultHead.next = None
+    p = resultHead #用来指向链表resultHead的最后一个结点
+    while p1 is not None and p2 is not None:
+        tmp = LNode()
+        tmp.next = None
+        sums = p1.data + p2.data + c
+        tmp.data = sums % 10
+        c = sums // 10
+        p.next = tmp
+        p = tmp
+        p1 = p1.next
+        p2 = p2.next
+    if p1 is None:
+        while p2 is not None:
+            tmp = LNode()
+            tmp.next = None
+            sums = p2.data +c
+            tmp.data = sums % 10
+            c = sums // 10
+            p.next = tmp
+            p = tmp
+            p2 = p2.next
+    if p2 is None:
+        while p1 is not None:
+            tmp = LNode()
+            tmp.next = None
+            sums = p1.data +c
+            tmp.data = sums%10
+            c = sums//10
+            p.next = tmp
+            p = tmp
+            p1 = p1.next
+    if c == 1:
+        tmp = LNode
+        tmp.next = None
+        tmp.data = 1
+        p.next =tmp
+    return resultHead
+
+if __name__=="__main__":
+    i=1
+    head1=LNode()
+    head1.next=None
+    head2=LNode()
+    head2.next=None
+    tmp=None
+    cur=head1
+    addResult=None
+    while i<7:
+        tmp=LNode()
+        tmp.data=i+2
+        tmp.next=None
+        cur.next=tmp
+        cur=tmp
+        i+=1
+    cur=head2
+    i=9
+    while i>4:
+        tmp=LNode()
+        tmp.data=i
+        tmp.next=None
+        cur.next=tmp
+        cur=tmp
+        i-=1
+    print("\nHead1:")
+    cur=head1.next
+    while cur is not None:
+        print(cur.data,end=" ")
+        cur=cur.next
+    print("\nHead2")
+    cur=head2.next
+    while cur is not None:
+        print(cur.data,end=" ")
+        cur=cur.next
+    print("\n链表相加后：")
+    addResult=add(head1,head2)
+    cur=addResult.next
+    while cur is not None:
+        print (cur.data,end=" ")
+        cur=cur.next
+        
+            
+    
